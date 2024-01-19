@@ -1,9 +1,8 @@
 @use "colors" as *;
 @use "typography" as *;
 @use "sizes" as *;
-@use "theme" as *;
 
-$prefix: "mjps-";
+$prefix: "mjp-";
 
 $active-theme: $light;
 $enable-media-query-dark-mode: false;
