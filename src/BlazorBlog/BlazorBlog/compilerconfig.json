@@ -1,7 +1,11 @@
 ﻿[
   {
-    "outputFile": "wwwroot/main.css",
+    "outputFile": "wwwroot/css/main.css",
     "inputFile": "sass/main.scss",
     "sourceMap": true
+  },
+  {
+    "outputFile": "wwwroot/css/bootstrap.css",
+    "inputFile": "wwwroot/lib/bootstrap/scss/bootstrap.scss"
   }
 ]
