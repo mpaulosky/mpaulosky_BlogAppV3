@@ -1,5 +1,3 @@
-using BlazorBlog.Data;
-
 using Microsoft.AspNetCore.Identity;
 
 namespace BlazorBlog.Components.Account;

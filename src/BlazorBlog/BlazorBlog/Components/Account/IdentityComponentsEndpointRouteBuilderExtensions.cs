@@ -3,7 +3,6 @@ using System.Text.Json;
 
 using BlazorBlog.Components.Account.Pages;
 using BlazorBlog.Components.Account.Pages.Manage;
-using BlazorBlog.Data;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
