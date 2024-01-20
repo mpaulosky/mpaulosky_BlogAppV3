@@ -1,0 +1,92 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: Build and Test .NET projects
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+    branches: ["main"]
+
+jobs:
+  build:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: ./global.json
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+
+      - name: Unit Tests
+        run: dotnet test --no-build --verbosity normal --settings ../../runsettings.xml
+        working-directory: ./src/BlazorBlogs.Tests.Unit
+
+      - name: Integration Tests
+        run: dotnet test --no-build --verbosity normal --settings ../../runsettings.xml
+        working-directory: ./src/BlazorBlogs.Tests.Integration
+
+      - name: BUnit Tests
+        run: dotnet test --no-build --verbosity normal --settings ../../runsettings.xml
+        working-directory: ./src/BlazorBlogs.Tests.BUnit
+        
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env: 
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: IssueTracker-test-results
+          path: TestResults
+
+        # Use always() to always run this step to
+        # publish test results when there are test failures
+        if: ${{ always() }}
+
+  playwright:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    name: "Playwright Tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    container:
+      image: mcr.microsoft.com/playwright/dotnet:v1.37.1-jammy
+      options: --ipc=host
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          global-json-file: ./global.json
+      - run: dotnet build
+  
+      - name: Execute Playwright tests
+        env:
+          TestHostStartDelay: 1000
+        run: dotnet test --no-build --settings ../../runsettings.xml
+        working-directory: ./src/BlazorBlogs.Tests.Web
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env: 
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: IssueTracker-test-results
+          path: TestResults
+
+        # Use always() to always run this step to
+        # publish test results when there are test failures
+        if: ${{ always() }}
