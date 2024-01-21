@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Sol
 		.gitignore = .gitignore
 		LICENSE.txt = LICENSE.txt
 		README.md = README.md
+		.github\dependabot.yml = .github\dependabot.yml
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		.github\workflows\formatting.yml = .github\workflows\formatting.yml
+		.github\workflows\todos-to-issues.yml = .github\workflows\todos-to-issues.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBlog", "src\BlazorBlog\BlazorBlog\BlazorBlog.csproj", "{E33F19E8-D3C1-4155-987E-711DF4F596E5}"
