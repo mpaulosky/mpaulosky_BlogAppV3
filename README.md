@@ -4,18 +4,18 @@ A training exercise to build a Blazor application for Viewing and Creating Blog 
 
 ****
 
-[![Issues Open](https://img.shields.io/github/issues/mpaulosky/mpaulosky_BlogApp.svg?style=flatsquare&logo=github&label=Open%20Issues)](https://github.com/mpaulosky/mpaulosky_BlogApp/issues)
-![GitHub closed issues](https://img.shields.io/github/issues-closed/mpaulosky/mpaulosky_BlogApp?logo=github)
-![GitHub](https://img.shields.io/github/license/mpaulosky/mpaulosky_BlogApp?logo=github)
+[![Issues Open](https://img.shields.io/github/issues/mpaulosky/mpaulosky_BlogAppV3.svg?style=flatsquare&logo=github&label=Open%20Issues)](https://github.com/mpaulosky/mpaulosky_BlogApp/issues)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/mpaulosky/mpaulosky_BlogAppV3?logo=github)
+![GitHub](https://img.shields.io/github/license/mpaulosky/mpaulosky_BlogAppV3?logo=github)
 
-![GitHub pull requests](https://img.shields.io/github/issues-pr/mpaulosky/mpaulosky_BlogApp?label=pull%20requests%20main&logo=github)
-![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/mpaulosky/mpaulosky_BlogApp?logo=github)
-![GitHub last commit (branch)](https://img.shields.io/github/last-commit/mpaulosky/mpaulosky_BlogApp/main?label=last%20commit%20main&logo=github)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/mpaulosky/mpaulosky_BlogAppV3?label=pull%20requests%20main&logo=github)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/mpaulosky/mpaulosky_BlogAppV3?logo=github)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/mpaulosky/mpaulosky_BlogAppV3/main?label=last%20commit%20main&logo=github)
 
-![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/mpaulosky/mpaulosky_BlogApp/dotnet.yml?branch=main&label=Build%20%26%20Test%20main&logo=github)
+![GitHub Workflow Status (with branch)](https://img.shields.io/github/actions/workflow/status/mpaulosky/mpaulosky_BlogAppV3/dotnet.yml?branch=main&label=Build%20%26%20Test%20main&logo=github)
 
-[![codecov](https://codecov.io/gh/mpaulosky/mpaulosky_BlogApp/branch/main/graph/badge.svg)](https://codecov.io/gh/mpaulosky/mpaulosky_BlogApp)
-[![CodeQL main](https://github.com/mpaulosky/mpaulosky_BlogApp/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/mpaulosky/mpaulosky_BlogApp/actions/workflows/github-code-scanning/codeql?branch=main)
+[![codecov](https://codecov.io/gh/mpaulosky/mpaulosky_BlogAppV3/branch/main/graph/badge.svg)](https://codecov.io/gh/mpaulosky/mpaulosky_BlogAppV3)
+[![CodeQL main](https://github.com/mpaulosky/mpaulosky_BlogAppV3/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main)](https://github.com/mpaulosky/mpaulosky_BlogAppV3/actions/workflows/github-code-scanning/codeql?branch=main)
 
 ****
 
@@ -47,4 +47,3 @@ See the [CODE-OF-CONDUCT](./CODE_OF_CONDUCT.md) document.
 ****
 
 References:
-
