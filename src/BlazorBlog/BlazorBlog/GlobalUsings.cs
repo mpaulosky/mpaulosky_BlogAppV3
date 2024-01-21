@@ -10,4 +10,8 @@
 global using BlazorBlog.Client;
 global using BlazorBlog.Components;
 global using BlazorBlog.Components.Account;
+global using BlazorBlog.Contracts;
 global using BlazorBlog.Data;
+global using BlazorBlog.Data.Models;
+
+global using MongoDB.Driver;
