@@ -17,9 +17,9 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           global-json-file: ./global.json
       - name: Restore dependencies
@@ -45,7 +45,7 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         
       - name: Upload dotnet test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: IssueTracker-test-results
           path: TestResults
@@ -63,9 +63,9 @@ jobs:
       image: mcr.microsoft.com/playwright/dotnet:v1.37.1-jammy
       options: --ipc=host
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup dotnet
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           global-json-file: ./global.json
       - run: dotnet build
@@ -82,7 +82,7 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         
       - name: Upload dotnet test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: IssueTracker-test-results
           path: TestResults
