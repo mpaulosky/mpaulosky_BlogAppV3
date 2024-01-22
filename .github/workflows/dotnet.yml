@@ -9,8 +9,13 @@ on:
   pull_request:
     branches: ["main"]
     types: [opened, synchronize, reopened, closed]
+    
   workflow_dispatch:
-    branches: ["main"]
+    inputs:
+      reason:
+        description: "The reason for running the workflow"
+        required: true
+      default: "Manual run"
 
 jobs:
   build:
@@ -38,7 +43,18 @@ jobs:
       - name: BUnit Tests
         run: dotnet test --no-build --verbosity normal --settings ../../runsettings.xml
         working-directory: ./src/BlazorBlog.Tests.BUnit
-        
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.10.2
+        with:
+          versionSpec: "5.x"
+
+      - name: Use GitVersion
+        id: gitversion # step id used as reference for output values
+        uses: gittools/actions/gitversion/execute@v0.10.2
+      - run: |
+          echo "FullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}"
+          
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env: 
