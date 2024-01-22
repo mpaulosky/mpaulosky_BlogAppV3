@@ -43,6 +43,12 @@ app.MapAdditionalIdentityEndpoints();
 
 app.Run();
 
+// TODO: Featuer: Add the Faker library to generate fake data for testing.
+// [] Add a fake for the BlogPost.
+// [] Add a fake for the ApplicationUser.
+// [] Add a fake for the BlogPostDto.
+// labels: enhancement, feature
+// assignees: mpaulosky
 
 [ExcludeFromCodeCoverage]
 public class AssemblyClassLocator;
