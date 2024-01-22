@@ -2,16 +2,10 @@ using System.Diagnostics.CodeAnalysis;
 
 using BlazorBlog.RegisterServices;
 
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.ConfigureServices();
-
-
 
 var app = builder.Build();
 
@@ -42,13 +36,6 @@ app.MapRazorComponents<App>()
 app.MapAdditionalIdentityEndpoints();
 
 app.Run();
-
-// TODO: Featuer: Add the Faker library to generate fake data for testing.
-// [] Add a fake for the BlogPost.
-// [] Add a fake for the ApplicationUser.
-// [] Add a fake for the BlogPostDto.
-// labels: enhancement, feature
-// assignees: mpaulosky
 
 [ExcludeFromCodeCoverage]
 public class AssemblyClassLocator;
