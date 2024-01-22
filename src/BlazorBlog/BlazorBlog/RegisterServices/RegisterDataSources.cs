@@ -16,11 +16,11 @@ public static partial class ServiceCollectionExtensions
 	/// Register DataSources
 	/// </summary>
 	/// <param name="builder"></param>
-	public static void RegisterDataSources(this WebApplicationBuilder builder)
+	private static void RegisterDataSources(this WebApplicationBuilder builder)
 	{
 
 		// Add services to the container.
-		// builder.Services.AddSingleton<IBlogPostData, MongoBlogPostData>();
+		builder.Services.AddSingleton<IBlogPostRepository, BlogPostRepository>();
 		// builder.Services.AddSingleton<IBlogService, BlogPostService>();
 
 	}

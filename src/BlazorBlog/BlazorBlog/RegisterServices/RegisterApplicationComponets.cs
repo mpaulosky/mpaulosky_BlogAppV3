@@ -16,7 +16,7 @@ public static partial class ServiceCollectionExtensions
 	/// Registers the application components.
 	/// </summary>
 	/// <param name="builder">The web application builder.</param>
-	public static void RegisterApplicationComponets(this WebApplicationBuilder builder)
+	private static void RegisterApplicationComponets(this WebApplicationBuilder builder)
 	{
 		
 		builder.Services.AddRazorComponents()

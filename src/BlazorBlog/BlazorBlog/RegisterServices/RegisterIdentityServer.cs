@@ -19,7 +19,7 @@ public static partial class ServiceCollectionExtensions
 	/// </summary>
 	/// <param name="builder">The web application builder.</param>
 	/// <exception cref="InvalidOperationException">Thrown when the connection string 'DefaultConnection' is not found.</exception>
-	public static void RegisterIdentityServer(this WebApplicationBuilder builder)
+	private static void RegisterIdentityServer(this WebApplicationBuilder builder)
 	{
 		
 		var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??

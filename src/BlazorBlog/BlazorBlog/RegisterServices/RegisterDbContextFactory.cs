@@ -8,14 +8,12 @@
 // =============================================
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace BlazorBlog.RegisterServices;
 
 public static partial class ServiceCollectionExtensions
 {
-
-	public static void RegisterMongoDbContext(this WebApplicationBuilder builder)
+	private static void RegisterDbContextFactory(this WebApplicationBuilder builder)
 	{
 		
 		// Get the MongoDbSettings section from the appsettings.json file.

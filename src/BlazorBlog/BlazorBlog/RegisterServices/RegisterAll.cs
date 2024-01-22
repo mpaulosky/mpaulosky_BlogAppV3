@@ -25,7 +25,7 @@ public static partial class ServiceCollectionExtensions
 		
 		builder.RegisterIdentityServer();
 		
-		builder.RegisterMongoDbContext();
+		builder.RegisterDbContextFactory();
 
 		builder.RegisterDataSources();
 		

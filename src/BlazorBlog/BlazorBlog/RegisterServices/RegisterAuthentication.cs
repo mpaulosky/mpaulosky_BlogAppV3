@@ -18,7 +18,7 @@ public static partial class ServiceCollectionExtensions
 	/// Registers the necessary services for authentication.
 	/// </summary>
 	/// <param name="builder">The <see cref="WebApplicationBuilder"/> instance used to configure the application.</param>
-	public static void RegisterAuthentication(this WebApplicationBuilder builder)
+	private static void RegisterAuthentication(this WebApplicationBuilder builder)
 	{
 
 		builder.Services.AddCascadingAuthenticationState();
