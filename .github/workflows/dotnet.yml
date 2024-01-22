@@ -23,9 +23,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./src
+
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET
@@ -35,9 +33,9 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build --no-restore --configuration Release --verbosity normal
       - name: Unit Test
-        run: dotnet test --no-build --verbosity normal --settings ../../runsettings.xml
+        run: dotnet test --no-build --configuration Release --verbosity normal --settings ../../runsettings.xml
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.10.2
