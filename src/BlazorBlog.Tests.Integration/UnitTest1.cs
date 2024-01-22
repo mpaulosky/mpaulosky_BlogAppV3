@@ -1,4 +1,4 @@
-namespace BlazorBlogs.Tests.Integration;
+namespace BlazorBlog.Tests.Integration;
 
 public class UnitTest1
 {
