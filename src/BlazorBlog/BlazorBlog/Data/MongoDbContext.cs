@@ -15,7 +15,8 @@ public class MongoDbContext : DbContext
 	{
 		Debug.WriteLine($"{ContextId} context created.");
 	}
-	public static MongoDbContext Create(IMongoDatabase database)
+	
+	public static MongoDbContext CreateContext(IMongoDatabase database)
 	{
 		return new MongoDbContext(new DbContextOptionsBuilder<MongoDbContext>()
 			.UseMongoDB(database.Client, database.DatabaseNamespace.DatabaseName)
