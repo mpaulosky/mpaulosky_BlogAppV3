@@ -59,15 +59,15 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Unit Tests
-        run: dotnet test --no-build --verbosity normal --settings ./runsettings.xml
+        run: dotnet test --no-build --settings ../../runsettings.xml
         working-directory: ./src/BlazorBlog.Tests.Unit
 
       - name: Integration Tests
-        run: dotnet test --no-build --verbosity normal --settings ./runsettings.xml
+        run: dotnet test --no-build normal --settings ../../runsettings.xml
         working-directory: ./src/BlazorBlog.Tests.Integration
 
       - name: BUnit Tests
-        run: dotnet test --no-build --verbosity normal --settings ./runsettings.xml
+        run: dotnet test --no-build --settings ../../runsettings.xml
         working-directory: ./src/BlazorBlog.Tests.BUnit
 
       - name: Install GitVersion
