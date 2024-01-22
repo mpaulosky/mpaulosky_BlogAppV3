@@ -1,4 +1,6 @@
-﻿using MongoDB.Bson;
+﻿using System.ComponentModel.DataAnnotations;
+
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace BlazorBlog.Data.Models;
@@ -15,24 +17,28 @@ public class BlogPost
 	[BsonId]
 	[BsonElement("_id")]
 	[BsonRepresentation(BsonType.ObjectId)]
+	[MaxLength(460)]
 	public string Id { get; set; } = string.Empty;
 
 	/// <summary>
 	///   Gets or sets the URL of the blog post.
 	/// </summary>
 	[BsonRepresentation(BsonType.String)]
+	[MaxLength(100)]
 	public string Url { get; set; } = string.Empty;
 
 	/// <summary>
 	///   Gets or sets the title of the blog post.
 	/// </summary>
 	[BsonRepresentation(BsonType.String)]
+	[MaxLength(256)]
 	public string Title { get; set; } = string.Empty;
 
 	/// <summary>
 	///   Gets or sets the content of the blog post.
 	/// </summary>
 	[BsonRepresentation(BsonType.String)]
+	[MaxLength(100000)]
 	public string Content { get; set; } = string.Empty;
 
 	/// <summary>
@@ -56,12 +62,14 @@ public class BlogPost
 	///   Gets or sets the description for the blog post.
 	/// </summary>
 	[BsonRepresentation(BsonType.String)]
+	[MaxLength(256)]
 	public string Description { get; set; } = string.Empty;
 
 	/// <summary>
 	///   Gets or sets the image associated with the blog post.
 	/// </summary>
 	[BsonRepresentation(BsonType.String)]
+	[MaxLength(1000)]
 	public string Image { get; set; } = string.Empty;
 
 	/// <summary>

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace BlazorBlog.Components.Account;
+
 // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
 // every 30 minutes an interactive circuit is connected. It also uses PersistentComponentState to flow the
 // authentication state to the client which is then fixed for the lifetime of the WebAssembly application.
@@ -23,11 +24,11 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
 	private Task<AuthenticationState>? _authenticationStateTask;
 
 	public PersistingRevalidatingAuthenticationStateProvider(
-			ILoggerFactory loggerFactory,
-			IServiceScopeFactory serviceScopeFactory,
-			PersistentComponentState persistentComponentState,
-			IOptions<IdentityOptions> optionsAccessor)
-			: base(loggerFactory)
+		ILoggerFactory loggerFactory,
+		IServiceScopeFactory serviceScopeFactory,
+		PersistentComponentState persistentComponentState,
+		IOptions<IdentityOptions> optionsAccessor)
+		: base(loggerFactory)
 	{
 		_scopeFactory = serviceScopeFactory;
 		_state = persistentComponentState;
@@ -40,7 +41,7 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
 	protected override TimeSpan RevalidationInterval => TimeSpan.FromMinutes(30);
 
 	protected override async Task<bool> ValidateAuthenticationStateAsync(
-			AuthenticationState authenticationState, CancellationToken cancellationToken)
+		AuthenticationState authenticationState, CancellationToken cancellationToken)
 	{
 		// Get the user manager from a new scope to ensure it fetches fresh data
 		await using var scope = _scopeFactory.CreateAsyncScope();
@@ -48,7 +49,8 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
 		return await ValidateSecurityStampAsync(userManager, authenticationState.User);
 	}
 
-	private async Task<bool> ValidateSecurityStampAsync(UserManager<ApplicationUser> userManager, ClaimsPrincipal principal)
+	private async Task<bool> ValidateSecurityStampAsync(UserManager<ApplicationUser> userManager,
+		ClaimsPrincipal principal)
 	{
 		var user = await userManager.GetUserAsync(principal);
 		if (user is null)
@@ -89,11 +91,7 @@ internal sealed class PersistingRevalidatingAuthenticationStateProvider : Revali
 
 			if (userId != null && email != null)
 			{
-				_state.PersistAsJson(nameof(UserInfo), new UserInfo
-				{
-					UserId = userId,
-					Email = email,
-				});
+				_state.PersistAsJson(nameof(UserInfo), new UserInfo { UserId = userId, Email = email });
 			}
 		}
 	}
