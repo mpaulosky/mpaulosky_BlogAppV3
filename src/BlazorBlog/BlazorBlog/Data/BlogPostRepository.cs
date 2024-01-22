@@ -5,8 +5,9 @@ namespace BlazorBlog.Data;
 /// <summary>
 ///   Data access implementation for MongoDB with BlogPost collection
 /// </summary>
-public class MongoBlogPostData : IBlogPostData
+public class BlogPostRepository : IBlogPostRepository
 {
+	
 	private readonly IDbContextFactory<MongoDbContext> _dbContextFactory;
 	
 	/// <summary>
@@ -14,7 +15,7 @@ public class MongoBlogPostData : IBlogPostData
 	/// </summary>
 	/// <param name="dbFactory">IDbContextFactory MongoDbContext</param>
 	/// <exception cref="ArgumentNullException"></exception>
-	public MongoBlogPostData(IDbContextFactory<MongoDbContext> dbFactory)
+	public BlogPostRepository(IDbContextFactory<MongoDbContext> dbFactory)
 	{
 		
 		_dbContextFactory = dbFactory ?? throw new ArgumentNullException(nameof(dbFactory));
@@ -28,7 +29,8 @@ public class MongoBlogPostData : IBlogPostData
 	/// <returns>A task placeholder for the async operation</returns>
 	public async Task ArchiveAsync(BlogPost post)
 	{
-		await using var context = await _dbContextFactory.CreateDbContextAsync();
+		
+		await using var context = await _dbContextFactory.CreateDbContextAsync().ConfigureAwait(false);
 		 context.BlogPosts?.Attach(post);
 		 context.BlogPosts?.Update(post);
 		 await context.SaveChangesAsync();
@@ -42,7 +44,8 @@ public class MongoBlogPostData : IBlogPostData
 	/// <returns>A task placeholder for the async operation</returns>
 	public async Task CreateAsync(BlogPost post)
 	{
-		await using var context = await _dbContextFactory.CreateDbContextAsync();
+		
+		await using var context = await _dbContextFactory.CreateDbContextAsync().ConfigureAwait(false);
 		context.BlogPosts?.Add(post);
 		await context.SaveChangesAsync();
 		
@@ -52,12 +55,11 @@ public class MongoBlogPostData : IBlogPostData
 	///   Gets all BlogPost objects async
 	/// </summary>
 	/// <returns>A List of all the BlogPost objects</returns>
-	public async Task<List<BlogPost>?> GetAllAsync()
+	public async Task<IEnumerable<BlogPost>?> GetAllAsync()
 	{
-		await using var context = await _dbContextFactory.CreateDbContextAsync();
-
-		var result = await (context.BlogPosts ?? throw new InvalidOperationException()).ToListAsync();
 		
+		await using var context = await _dbContextFactory.CreateDbContextAsync().ConfigureAwait(false);
+		var result = await (context.BlogPosts ?? throw new InvalidOperationException()).ToListAsync();
 		return result;
 
 	}
@@ -69,8 +71,8 @@ public class MongoBlogPostData : IBlogPostData
 	/// <returns>The BlogPost corresponding to the URL provided or null if it doesn't exist</returns>
 	public async Task<BlogPost?> GetByUrlAsync(string url)
 	{
-		await using var context = await _dbContextFactory.CreateDbContextAsync();
-
+		
+		await using var context = await _dbContextFactory.CreateDbContextAsync().ConfigureAwait(false);
 		return await (context.BlogPosts ?? throw new InvalidOperationException()).FirstOrDefaultAsync(b => b.Url == url);
 		
 	}
@@ -82,9 +84,11 @@ public class MongoBlogPostData : IBlogPostData
 	/// <returns>A task placeholder for the async operation</returns>
 	public async Task UpdateAsync(BlogPost post)
 	{
-		await using var context = await _dbContextFactory.CreateDbContextAsync();
+		
+		await using var context = await _dbContextFactory.CreateDbContextAsync().ConfigureAwait(false);
 		context.BlogPosts?.Attach(post);
 		context.BlogPosts?.Update(post);
 		await context.SaveChangesAsync();
+		
 	}
 }
