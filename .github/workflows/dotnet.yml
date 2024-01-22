@@ -13,11 +13,6 @@ on:
     branches:
       - main
 
-    paths-ignore:
-      - "**/*.md"
-      - "**/*.gitignore"
-      - "**/*.gitattributes"
-
   workflow_dispatch:
     inputs:
       reason:
@@ -26,49 +21,23 @@ on:
         default: "Manual run"
 
 jobs:
-  build-and-test:
-    name: Build-and-Test=${{matrix.os}}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-latest ]
-
-    env:
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-      DOTNET_NOLOGO: true
-      DOTNET_GENERATE_ASPNET_CERTIFICATE: false
-      DOTNET_ADD_GLOBAL_TOOLS_TO_PATH: false
-      DOTNET_MULTILEVEL_LOOKUP: 0
-
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src
     steps:
       - uses: actions/checkout@v3
-      - name: Fetch all history for all tags and branches
-        run: |
-          git fetch --prune --unshallow
-
-      - name: Setup .NET Core SDK
+      - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           global-json-file: ./global.json
-
-      - name: Restores
+      - name: Restore dependencies
         run: dotnet restore
-
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Unit Tests
-        run: dotnet test --no-build --settings ../../runsettings.xml
-        working-directory: ./src/BlazorBlog.Tests.Unit
-
-      - name: Integration Tests
-        run: dotnet test --no-build normal --settings ../../runsettings.xml
-        working-directory: ./src/BlazorBlog.Tests.Integration
-
-      - name: BUnit Tests
-        run: dotnet test --no-build --settings ../../runsettings.xml
-        working-directory: ./src/BlazorBlog.Tests.BUnit
+        run: dotnet build --no-restore
+      - name: Unit Test
+        run: dotnet test --no-build --verbosity normal --settings ../../runsettings.xml
 
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.10.2
