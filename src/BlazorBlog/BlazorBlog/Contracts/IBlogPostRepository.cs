@@ -1,6 +1,6 @@
 ﻿namespace BlazorBlog.Contracts;
 
-public interface IBlogPostData
+public interface IBlogPostRepository
 {
 	Task ArchiveAsync(BlogPost post);
 
@@ -8,7 +8,7 @@ public interface IBlogPostData
 
 	Task<BlogPost?> GetByUrlAsync(string url);
 
-	Task<List<BlogPost>?> GetAllAsync();
+	Task<IEnumerable<BlogPost>?> GetAllAsync();
 
 	Task UpdateAsync(BlogPost post);
 }
