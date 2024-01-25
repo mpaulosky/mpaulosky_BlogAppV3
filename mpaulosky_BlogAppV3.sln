@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Solution Items", "0. Sol
 		.github\workflows\code-metrics.yml = .github\workflows\code-metrics.yml
 		.github\workflows\codeql-analysis.yml = .github\workflows\codeql-analysis.yml
 		.github\workflows\qodana_code_quality.yml = .github\workflows\qodana_code_quality.yml
+		.github\workflows\qodana.yml = .github\workflows\qodana.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorBlog", "src\BlazorBlog\BlazorBlog\BlazorBlog.csproj", "{E33F19E8-D3C1-4155-987E-711DF4F596E5}"
