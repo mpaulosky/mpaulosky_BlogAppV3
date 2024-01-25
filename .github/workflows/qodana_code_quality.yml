@@ -10,6 +10,7 @@ jobs:
   qodana:
     runs-on: ubuntu-latest
     steps:
+
       - uses: actions/checkout@v2
       - name: Run Qodana
         uses: jetbrains/qodana-action@v1
@@ -23,3 +24,4 @@ jobs:
         with:
           name: qodana-report
           path: report.html
+
