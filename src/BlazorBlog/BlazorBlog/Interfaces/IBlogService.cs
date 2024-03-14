@@ -10,5 +10,9 @@ public interface IBlogService
 
 	Task<BlogPost?> GetByUrlAsync(string url);
 
+	Task<BlogPost?> GetByAuthorAsync(string author);
+
+	Task<BlogPost?> GetByTitleAsync(string title);
+
 	Task UpdateAsync(BlogPost post);
 }

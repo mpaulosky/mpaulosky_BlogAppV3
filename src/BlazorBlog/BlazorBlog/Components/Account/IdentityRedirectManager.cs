@@ -1,7 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
-using Microsoft.AspNetCore.Components;
-
 namespace BlazorBlog.Components.Account;
 
 internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
@@ -41,7 +37,7 @@ internal sealed class IdentityRedirectManager(NavigationManager navigationManage
 	[DoesNotReturn]
 	public void RedirectToWithStatus(string uri, string message, HttpContext? context)
 	{
-		context.Response.Cookies.Append(StatusCookieName, message, StatusCookieBuilder.Build(context));
+		context?.Response.Cookies.Append(StatusCookieName, message, StatusCookieBuilder.Build(context));
 		RedirectTo(uri);
 	}
 

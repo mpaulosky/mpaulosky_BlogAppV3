@@ -8,6 +8,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Contracts\**" />
+	  <Content Remove="Contracts\**" />
+	  <EmbeddedResource Remove="Contracts\**" />
+	  <None Remove="Contracts\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="MongoDB.Driver" Version="2.23.1" />
 		<ProjectReference Include="..\BlazorBlog.Client\BlazorBlog.Client.csproj" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.1" />
@@ -19,7 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Contracts\" />
 	  <Folder Include="wwwroot\css\" />
 	</ItemGroup>
 

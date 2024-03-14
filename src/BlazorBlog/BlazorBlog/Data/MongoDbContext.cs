@@ -1,22 +1,28 @@
-﻿using System.Diagnostics;
+﻿// ============================================
+// Copyright (c) 2024. All rights reserved.
+// File Name :     MongoDbContext.cs
+// Company :       mpaulosky
+// Author :        teqsl
+// Solution Name : mpaulosky_BlogAppV3
+// Project Name :  BlazorBlog
+// =============================================
 
 using Microsoft.EntityFrameworkCore;
+
 using MongoDB.EntityFrameworkCore.Extensions;
 
 namespace BlazorBlog.Data;
 
 public class MongoDbContext : DbContext
 {
-	
-	public DbSet<BlogPost>? BlogPosts { get; init; }
-
-	public MongoDbContext(DbContextOptions<MongoDbContext> options)
+	public MongoDbContext(DbContextOptions options)
 		: base(options)
 	{
-		Debug.WriteLine($"{ContextId} context created.");
 	}
-	
-	public static MongoDbContext CreateContext(IMongoDatabase database)
+
+	public DbSet<BlogPost> BlogPosts { get; init; }
+
+	public static MongoDbContext Create(IMongoDatabase database)
 	{
 		return new MongoDbContext(new DbContextOptionsBuilder<MongoDbContext>()
 			.UseMongoDB(database.Client, database.DatabaseNamespace.DatabaseName)
@@ -25,25 +31,10 @@ public class MongoDbContext : DbContext
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		
 		base.OnModelCreating(modelBuilder);
-		
-		modelBuilder.Entity<BlogPost>().ToCollection("posts");
 
+		modelBuilder.Entity<BlogPost>()
+			.HasQueryFilter(x => x.IsArchived == false)
+			.ToCollection("posts");
 	}
-	
-	// Dispose pattern.
-	public override void Dispose()
-	{
-		Debug.WriteLine($"{ContextId} context disposed.");
-		base.Dispose();
-	}
-
-	// Dispose pattern.
-	public override ValueTask DisposeAsync()
-	{
-		Debug.WriteLine($"{ContextId} context disposed async.");
-		return base.DisposeAsync();
-	}
-
 }

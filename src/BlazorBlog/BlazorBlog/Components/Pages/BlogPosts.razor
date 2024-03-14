@@ -1,0 +1,45 @@
+﻿@page "/blogposts"
+@attribute [StreamRendering]
+@inject IBlogService BlogService
+@inject NavigationManager NavigationManager
+
+<PageTitle>Blog Posts</PageTitle>
+
+<h3>Blog Posts</h3>
+
+@if (_blogPosts == null)
+{
+	<p>
+		<em>Loading...</em>
+	</p>
+}
+else if (_blogPosts.Count == 0)
+{
+	<p>
+		<em>No blog posts found.</em>
+	</p>
+}
+else
+{
+	<ul>
+		@foreach (var blogPost in _blogPosts)
+		{
+			<li>
+				@blogPost.Title
+			</li>
+		}
+	</ul>
+}
+
+@code {
+	List<BlogPost>? _blogPosts;
+
+	protected override async Task OnInitializedAsync()
+	{
+		// Simulate asynchronous loading to demonstrate streaming rendering
+		//await Task.Delay(1000);
+
+		_blogPosts = await BlogService.GetAllAsync();
+	}
+
+}

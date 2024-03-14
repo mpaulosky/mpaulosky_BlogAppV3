@@ -1,5 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
-
 using BlazorBlog.RegisterServices;
 
 var builder = WebApplication.CreateBuilder(args);

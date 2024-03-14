@@ -33,3 +33,23 @@ $size-12: 5rem;
 $size-13: 6rem;
 $size-14: 8rem;
 $size-15: 10rem;
+
+
+// Margin & padding classes
+$spaceamounts: (1,2,3,4,5);
+
+@each $space in $spaceamounts {
+  .m-#{$space} {
+    margin: #{$space}rem;
+  }
+  .my-#{$space} {
+    margin: #{$space}rem 0;
+  }
+
+  .p-#{$space} {
+    padding: #{$space}rem;
+  }
+  .py-#{$space} {
+    padding: #{$space}rem 0;
+  }
+}

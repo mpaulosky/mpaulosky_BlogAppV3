@@ -1,12 +1,33 @@
 ﻿@page "/Account/ExternalLogin"
-
+@using Microsoft.AspNetCore.Identity
 @using System.ComponentModel.DataAnnotations
 @using System.Security.Claims
 @using System.Text
 @using System.Text.Encodings.Web
-@using Microsoft.AspNetCore.Identity
+@using BlazorBlog.Components.Account.Shared
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
 @using Microsoft.AspNetCore.WebUtilities
-@using BlazorBlog.Data
+@using System.ComponentModel.DataAnnotations
+@using System.Security.Claims
+@using System.Text
+@using System.Text.Encodings.Web
+@using BlazorBlog.Components.Account.Shared
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.WebUtilities
+@using System.ComponentModel.DataAnnotations
+@using System.Security.Claims
+@using System.Text
+@using System.Text.Encodings.Web
+@using BlazorBlog.Components.Account.Shared
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Identity.EntityFrameworkCore
+@using Microsoft.AspNetCore.WebUtilities
+
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -14,13 +35,12 @@
 @inject IEmailSender<ApplicationUser> EmailSender
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
-@inject ILogger<ExternalLogin> Logger
 
 <PageTitle>Register</PageTitle>
 
 <StatusMessage Message="@_message"/>
 <h1>Register</h1>
-<h2>Associate your @ProviderDisplayName account.</h2>
+@* <h2>Associate your @ProviderDisplayName account.</h2> *@
 <hr/>
 
 <div class="alert alert-info">
@@ -36,7 +56,7 @@
 			<ValidationSummary class="text-danger" role="alert"/>
 			<div class="form-floating mb-3">
 				<InputText @bind-Value="Input.Email" class="form-control" autocomplete="email" placeholder="Please enter your email."/>
-				<label for="email" class="form-label">Email</label>
+				<label class="form-label">Email</label>
 				<ValidationMessage For="() => Input.Email"/>
 			</div>
 			<button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
@@ -45,44 +65,81 @@
 </div>
 
 @code {
-	public const string LoginCallbackAction = "LoginCallback";
+	private const string _loginCallbackAction = "LoginCallback";
 
 	private string? _message;
-	private ExternalLoginInfo _externalLoginInfo = default!;
 
 	[CascadingParameter] private HttpContext? HttpContext { get; set; }
 
 	[SupplyParameterFromForm] private InputModel Input { get; set; } = new();
 
-	[SupplyParameterFromQuery] private string? RemoteError { get; set; }
+	[SupplyParameterFromQuery] private string RemoteError { get; set; } = string.Empty;
 
-	[SupplyParameterFromQuery] private string? ReturnUrl { get; set; }
+	[SupplyParameterFromQuery] private string? ReturnUrl { get; set; } = string.Empty;
 
-	[SupplyParameterFromQuery] private string? Action { get; set; }
+	[SupplyParameterFromQuery] private string? Action { get; set; } = string.Empty;
 
 	private string? ProviderDisplayName => _externalLoginInfo.ProviderDisplayName;
 
-	protected override async Task OnInitializedAsync()
+	protected async Task OnInitializedAsync()
 	{
-		if (RemoteError is not null)
+		if (RemoteError.Length != 0)
 		{
 			RedirectManager.RedirectToWithStatus("Account/Login", $"Error from external provider: {RemoteError}", HttpContext);
 		}
 
-		var info = await SignInManager.GetExternalLoginInfoAsync();
+		var info = await SignInManager<ApplicationUser>.GetExternalLoginInfoAsync();
+
 		if (info is null)
 		{
 			RedirectManager.RedirectToWithStatus("Account/Login", "Error loading external login information.", HttpContext);
 		}
 
+		private ExternalLoginInfo _externalLoginInfo = null!;
 		_externalLoginInfo = info;
 
-		if (HttpMethods.IsGet(HttpContext.Request.Method))
+		if (HttpContext != null)
 		{
-			if (Action == LoginCallbackAction)
+			if (HttpMethods.IsGet(HttpContext.Request.Method))
 			{
-				await OnLoginCallbackAsync();
-				return;
+				if (Action == _loginCallbackAction)
+				{
+					await OnLoginCallbackAsync();
+					return;
+				}
+			}
+
+			// We should only reach this page via the login callback, so redirect back to
+			// the login page if we get here some other way.
+			RedirectManager.RedirectTo("Account/Login");
+		}
+	}
+	protected override async Task OnInitializedAsync()
+	{
+		if (RemoteError.Length != 0)
+		{
+			RedirectManager.RedirectToWithStatus("Account/Login", $"Error from external provider: {RemoteError}", HttpContext);
+		}
+
+		var info = await SignInManager.GetExternalLoginInfoAsync();
+
+		if (info is null)
+		{
+			RedirectManager.RedirectToWithStatus("Account/Login", "Error loading external login information.", HttpContext);
+		}
+
+		private ExternalLoginInfo _externalLoginInfo = null!;
+		_externalLoginInfo = info;
+
+		if (HttpContext != null)
+		{
+			if (HttpMethods.IsGet(HttpContext.Request.Method))
+			{
+				if (Action == _loginCallbackAction)
+				{
+					await OnLoginCallbackAsync();
+					return;
+				}
 			}
 
 			// We should only reach this page via the login callback, so redirect back to
@@ -182,7 +239,7 @@
 		return (IUserEmailStore<ApplicationUser>)UserStore;
 	}
 
-	private sealed class InputModel
+	public sealed class InputModel
 	{
 		[Required] [EmailAddress] public string Email { get; set; } = "";
 	}

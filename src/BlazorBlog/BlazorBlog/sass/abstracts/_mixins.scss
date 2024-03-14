@@ -33,3 +33,19 @@
   font-weight: $heading-font-weight;
   line-height: $heading-line-height;
 }
+
+
+// _mobile.scss
+@media(max-width: 700px) {
+  .showcase {
+    height: 400px;
+
+    &-content {
+      text-align: center;
+
+      img {
+        display: none;
+      }
+    }
+  }
+}

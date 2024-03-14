@@ -7,7 +7,6 @@
 // Project Name :  BlazorBlog
 // =============================================
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlazorBlog.RegisterServices;
